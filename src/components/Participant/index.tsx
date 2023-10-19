@@ -1,20 +1,20 @@
-import { Feather } from "@expo/vector-icons"
-import { View, Text, TouchableOpacity, ViewProps } from "react-native"
+import { View, Text, ViewProps } from "react-native"
+
+import { ButtonToggleParticipant } from "../ButtonToggleParticipant"
 
 import { styles } from "./styles"
 
 interface ParticipantProps extends ViewProps {
   name: string
+  onRemove: () => void
 }
 
-export function Participant({ name, ...rest }: ParticipantProps) {
+export function Participant({ name, onRemove, ...rest }: ParticipantProps) {
   return (
     <View style={styles.container} {...rest}>
       <Text style={styles.name}>{name}</Text>
 
-      <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-        <Feather name="minus" size={24} color="#000" />
-      </TouchableOpacity>
+      <ButtonToggleParticipant variant="remove" onPress={onRemove} />
     </View>
   )
 }

@@ -1,13 +1,32 @@
-import { Feather } from "@expo/vector-icons"
-import { View, Text, TextInput, TouchableOpacity } from "react-native"
+import { View, Text, TextInput, ScrollView } from "react-native"
 
 import { Participant } from "../../components/Participant"
+import { ButtonToggleParticipant } from "../../components/ButtonToggleParticipant"
 
 import { styles } from "./styles"
 
 export function Home() {
+  const participants = [
+    "Erik",
+    "Maria",
+    "David",
+    "Breno",
+    "Nascimento",
+    "Leticia",
+    "Andressa",
+    "Vanessa",
+    "Vanusa",
+    "Daniel",
+    "Jeiel",
+    "Matheus",
+  ]
+
   function handleAddParticipant() {
     console.log("Você clicou no botão de adicionar participante!")
+  }
+
+  function handleRemoveParticipant(name: string) {
+    console.log("Você clicou em remover o participante " + name)
   }
 
   return (
@@ -22,18 +41,18 @@ export function Home() {
           placeholderTextColor="#6B6B6B"
         />
 
-        <TouchableOpacity
-          style={styles.button}
-          activeOpacity={0.7}
-          onPress={handleAddParticipant}
-        >
-          <Feather name="plus" size={24} color="#000" />
-        </TouchableOpacity>
+        <ButtonToggleParticipant variant="add" onPress={handleAddParticipant} />
       </View>
 
-      <Participant name="Erik Ferreira" />
-      <Participant name="Maria Letícia" />
-      <Participant name="José David" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {participants.map((participant) => (
+          <Participant
+            key={participant}
+            name={participant}
+            onRemove={() => handleRemoveParticipant(participant)}
+          />
+        ))}
+      </ScrollView>
     </View>
   )
 }
